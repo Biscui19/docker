@@ -12,8 +12,8 @@
 1. **Clonez ce dépôt :**
 
     ```bash
-    git clone https://github.com/Karim932/docker.git
-    cd projet
+    git clone https://github.com/Biscui19/docker.git
+    cd docker
     ```
 
 2. **Construisez et démarrez les conteneurs :**
@@ -23,9 +23,9 @@
     ```
 
     Cette commande va :
-    - Construire les images Docker pour les services frontend et backend à partir des Dockerfiles situés dans les répertoires respectifs `front` et `back`
+    - Tirer les images Docker pour les services frontend et backend depuis Docker Hub (biscui/frontend:latest et biscui/backend:latest)
     - Démarrer les conteneurs pour chaque service (frontend, backend, db, et phpmyadmin)
-    - Créer et initialiser la base de données MySQL avec le fichier bdd.sql 
+    - Créer et initialiser la base de données MySQL avec le fichier bdd.sql
 
 3. **Accédez à l'application :**
     - Front-end : [http://localhost:8080](http://localhost:8080) -> le site web
@@ -38,15 +38,14 @@ L'application est composée de 4 services principaux qui sont dans le fichier `d
 ### Services
 
 - **frontend** : Gère l'interface utilisateur.
-    - **Dockerfile** : Situé dans le répertoire `front`.
+    - **Images** : biscui/frontend:lastest
     - **Ports** : `8080` (externe) mappé vers `80` (interne).
     - **Volumes** :
-        - `./back/config:/var/www/html/config`
-        - `./back/admin:/var/www/html/admin`
+        - - `./front:/var/www/html`
     - **Dépendances** : Dépend du service `backend`.
 
 - **backend** : Ajout des maillot dans la boutique.
-    - **Dockerfile** : Situé dans le répertoire `back`.
+    - **Images** : biscui/backend:lastest
     - **Ports** : `8081` (externe) mappé vers `80` (interne).
     - **Volumes** :
         - `./back/config:/var/www/html/config`
@@ -104,8 +103,8 @@ L'application est composée de 4 services principaux qui sont dans le fichier `d
 - **Tester la connexion front-end vers back-end :**
     1. Ouvrez votre navigateur et accédez à [http://localhost:8080](http://localhost:8080).
     2. Après s'être connecté sur phpMyAdmin, on peut modifier le status et le passer à 1 pour devenir administrateur 
-    3. Ensuite aller sur l'onglet `pannel admin` et ajoutez un maillot
-    4. Normalement il n'y a pas eu d'erreur et le maillot a bien été ajouter dans `boutique`
+    3. Ensuite connectez vous avec l'utilisateur admin et ajouter un maillot
+    4. Normalement il n'y a pas eu d'erreur et le maillot a bien été ajouté en base de donnée
     5. On peut aller voir sur la base de donnée, il y a le lien de l'image dans la colonne `image` de la table `maillots`
 
 ### Test de la persistance des données
