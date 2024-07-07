@@ -1,0 +1,64 @@
+version: '3'
+services:
+  frontend:
+    image: biscui/frontend:latest
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+    volumes:
+      - ./front:/var/www/html
+    depends_on:
+      - backend
+
+  backend:
+    image: biscui/frontend:latest
+    ports:
+      - "8081:80"
+    networks:
+      - app-network
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_USER=user
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=FootKit
+    volumes:
+      - ./back/config:/var/www/html/config
+      - ./back/admin:/var/www/html/admin
+      
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: FootKit
+      MYSQL_USER: user
+      MYSQL_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/bdd.sql:/docker-entrypoint-initdb.d/bdd.sql
+    networks:
+      - app-network
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8082:80"
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+volumes:
+  db_data:
+
+networks:
+  app-network:
+    driver: bridge

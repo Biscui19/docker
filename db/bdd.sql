@@ -1,0 +1,21 @@
+DROP DATABASE IF EXISTS `FootKit`;
+CREATE DATABASE `FootKit`;
+USE `FootKit`;
+
+CREATE USER 'admin'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON FootKit.* TO 'admin'@'%';
+FLUSH PRIVILEGES;
+
+CREATE TABLE utilisateurs(
+    id_utilisateur INT AUTO_INCREMENT PRIMARY KEY,
+    pseudo VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    mot_de_passe VARCHAR(255) NOT NULL,
+    admin BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE maillots (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nom VARCHAR(255) NOT NULL,
+  image VARCHAR(255) NOT NULL
+);

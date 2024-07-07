@@ -1,0 +1,21 @@
+body {
+    background-color: rebeccapurple;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+  }
+
+.footer {
+    background-color: #629bd4; 
+    padding: 10px 0;
+}
+
+.footer-text {
+    text-align: left;
+}
+
+svg {
+    text-align: right;
+}
+
+
